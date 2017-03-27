@@ -1,0 +1,95 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	border-radius: 5px;
+	background-color: #72cbff;
+}
+header {
+	color: #ffffff;
+	background-color: #3877aa;
+	height: 100px;
+}
+main {
+	background-color: #72cbff;
+	clear: both;
+	text-align: center;
+	background-image: url("../images/bingo-background.png");
+	background-size: cover;
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+span {
+	display: block;
+	font-size: 26px;
+	line-height: 2;
+}
+.left {
+	float: left;
+	position: relative;
+	top: 33px;
+	left: 38px;
+
+}
+.right {
+	float: right;
+	position: relative;
+	top: 33px;
+	right: 38px;
+}
+.left, .right {
+	display: block;
+	font-size: 26px;
+}
+.single-ball {
+	float: left;
+	height: 65px;
+	position: relative;
+	top: 17px;
+	left: 23px;
+}
+.description {
+	line-height: 1.1;
+	color: white;
+	width: 440px;
+	font-size: 45px;
+	margin: 40px auto;
+}
+.prove {
+	border-radius: 6px;
+	text-align: center;
+	background-color: #ffaf71;
+	padding: 14px;
+	color: #ffffff;
+	width: 190px;
+	margin: 60px auto 0 auto;
+	font-size: 20px;
+}
+@media (max-width: 768px) {
+	header {
+    	height: 65px;
+    }
+    span {
+    	font-size: 18px;
+    }
+    .right {
+    	display: none;
+    }
+    .left {
+    	font-size: 18px;
+    	top: 22px;
+    	left: 26px;
+    }
+    .single-ball {
+    	display: none;
+    	height: 30px;
+    }
+    .description {
+    	width: 370px;
+    	font-size: 30px;
+    }
+    .prove {
+    	font-size: 16px;
+    	padding: 10px;
+    }
+}

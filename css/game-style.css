@@ -1,0 +1,22 @@
+body {
+	background-color: #f7f7f7;
+	text-align: center;
+}
+header {
+
+}
+main {
+
+}
+td {
+	width: 100px;
+	height: 100px;
+	border: 3px solid white;
+	font-size: 20px;
+
+	font-weight: 800;
+	background-color: #bae3ff;
+}
+h1 {background-color: blue;
+	padding-bottom: 100px;
+}
