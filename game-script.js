@@ -41,39 +41,51 @@ for (let i = 0; i < 25; i++) {
 	// assign each square an index
 	squares[i].dataset.index = i;
 }
+// set free space
+squares[12].textContent = "Free!";
 
 // create a random array for "calling" the balls
 let ballOrder = randomArray(1,75);
 console.log(ballOrder);
 
-function callBall() {
-	document.getElementById("current-ball").textContent = ballOrder[0];
+let ballNumber = -1;
+function nextBall() {
+	ballNumber++; //for first ball, sets ballNumber to 0, increments by one every time after
+	document.getElementById("current-ball").textContent = ballOrder[ballNumber];
 
 }
 callBall();
 
-let rowCount = [0,0,0,0];
-let colCount = [0,0,0,0];
+let gridWidth = 5;
+let rowCount = [0,0,1,0,0];
+let colCount = [0,0,1,0,0];
+let backslash = 0;
+let forwardslash = 0;
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
 		//if (square.textContent === document.getElementById("current-ball").textContent) {
 			console.log(square);
 			let indy = square.dataset.index;
-			console.log(indy);
-			square.style.backgroundColor = "black";
-			rowCount[indy%5]++;
-			colCount[Math.floor(ind/5)];
+			console.log("indy" + indy);
+			square.style.backgroundColor = "blue";
+			colCount[indy%gridWidth]++;
+			rowCount[Math.floor(indy/gridWidth)]++;
 			console.log('rowCount: ' + rowCount);
 			console.log('colCount: ' + colCount);
+			if (indy%(gridWidth+1) === 0) { backslash++; }
+			if (indy == 4 || indy == 8 || indy == 16 || indy == 20) { forwardslash++; }
+			console.log("forwardslash: " + forwardslash);
+			console.log("backslash: " + backslash);
 
 		//}
 	});
 });
 
-let ind = 20;
-console.log(ind%5);
-console.log();
+
+
+
+
 
 
 
