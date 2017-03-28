@@ -1,8 +1,11 @@
 body {
-	background-color: #f7f7f7;
+	background-color: #fffdf4;
+	font-family: 'Open Sans', sans-serif;
 }
 header {
-
+	color: #ffffff;
+	background-color: #3877aa;
+	height: 100px;
 }
 main {
 
@@ -22,8 +25,36 @@ h1 {
 table {
 	margin: 0 auto;
 }
+.left {
+	float: left;
+	position: relative;
+	top: 33px;
+	left: 38px;
+
+}
+.right {
+	float: right;
+	position: relative;
+	top: 33px;
+	right: 38px;
+}
+.left, .right {
+	display: block;
+	font-size: 26px;
+}
+.single-ball {
+	float: left;
+	height: 65px;
+	position: relative;
+	top: 17px;
+	left: 23px;
+}
 .current-ball-label {
-	font-size: 30px;
+	font-size: 20px;
 	text-align: center;
-	margin: 15px 0;
+	margin: 15px 0 0 0;
+}
+#current-ball {
+	font-size: 85px;
+	text-align: center;
 }

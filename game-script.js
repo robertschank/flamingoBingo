@@ -5,6 +5,28 @@ function Square() {
 	this.marked = false;
 	this.value = value;
 }
+
+//Player Constructor
+function Player(name){
+	this.name = name;
+	this.score = null;
+}
+
+// instantiate players and game
+player1 = new Player("Player 1");
+player2 = new Player("Player 2");
+
+//game constructor
+function Game() {
+	this.currentPlayer = "player1";
+	this.winner;
+	this.over = false;
+	this.switchPlayer = false;
+	this.currentStrokes = 0;
+}
+
+let game = new Game();
+
 // grab each square in the table
 var squares = document.querySelectorAll("td");
 
@@ -51,14 +73,6 @@ squares[12].textContent = "Free!";
 let ballOrder = randomArray(1,75);
 console.log(ballOrder);
 
-let ballNumber = -1;
-function nextBall() {
-	ballNumber++; //for first ball, sets ballNumber to 0, increments by one every time after
-	document.getElementById("current-ball").textContent = ballOrder[ballNumber];
-
-}
-nextBall();
-
 let gridWidth = 5;
 // set counters, account for free space
 let rowCount = [0,0,1,0,0];
@@ -76,12 +90,12 @@ squares.forEach(function(square) {
 
 			let markedCol = indy%gridWidth;
 			colCount[markedCol]++;
-			if (colCount[markedCol] >= gridWidth) {alert('bingo!');}
+			if (colCount[markedCol] >= gridWidth) {game.switchPlayer = true;}
 
 			let markedRow = Math.floor(indy/gridWidth);
 			rowCount[markedRow]++;
 			if (rowCount[markedRow] >= gridWidth) {
-				alert('bingo');
+				game.switchPlayer = true;
 			}
 			let x = (colCount - gridWidth);
 			console.log("subtraction: " + x);
@@ -90,25 +104,43 @@ squares.forEach(function(square) {
 			console.log('rowCount: ' + rowCount);
 			console.log('colCount: ' + colCount);
 			if (indy%(gridWidth+1) === 0) { backslash++; }
-			if (backslash >= gridWidth) {alert('diagonal bingo!');}
+			if (backslash >= gridWidth) {game.switchPlayer = true;}
 			if (indy == 4 || indy == 8 || indy == 16 || indy == 20) { forwardslash++; }
-			if (forwardslash >= gridWidth) {alert('diagonal bingo yo!');}
+			if (forwardslash >= gridWidth) {game.switchPlayer = true;}
 			console.log("forwardslash: " + forwardslash);
 			console.log("backslash: " + backslash);
+
+			if (game.switchPlayer) {
+				alert('nice job ' + game.currentPlayer + '!');
+				game.currentPlayer.score = game.currentPlayer.strokeCount;
+				document.getElementById(game.currentPlayer + "Strokes").textContent = game.currentStrokes;
+				console.log(game.currentPlayer.name + ' score ' + game.currentPlayer.score);
+			}
 
 		//}
 	});
 });
 
-function startGame() {
+let ballNumber = -1;
+function nextBall() {
+	game.currentStrokes++;
+	ballNumber++; //for first ball, sets ballNumber to 0, increments by one every time after
+	let currentBall = document.getElementById("current-ball");
+	currentBall.textContent = ballOrder[ballNumber];
+	if (ballNumber >= 74) {ballNumber = -1;}
 
+}
+
+function startCounter() {
+
+	nextBall(); // call once to start immediately, then through setInterval()
 	setInterval(function() {
 		console.log('Hey! Hey!');
 		nextBall();
-	}, 4000);
+	}, 2000);
 
 }
-startGame();
+startCounter();
 
 
 
