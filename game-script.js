@@ -7,25 +7,34 @@ function Square() {
 }
 
 //Player Constructor
-function Player(name){
+function Player(name, id){
 	this.name = name;
+	this.id = id;
 	this.score = null;
 }
 
 // instantiate players and game
-player1 = new Player("Player 1");
-player2 = new Player("Player 2");
+player1 = new Player("Player 1", "player1");
+player2 = new Player("Player 2", "player2");
 
 //game constructor
 function Game() {
-	this.currentPlayer = "player1";
+	this.currentPlayer = player1;
 	this.winner;
 	this.over = false;
 	this.switchPlayer = false;
 	this.currentStrokes = 0;
+	this.ticker;
 }
 
 let game = new Game();
+
+let gridWidth = 5;
+// set counters, account for free space
+let rowCount = [0,0,1,0,0];
+let colCount = [0,0,1,0,0];
+let backslash = 1;
+let forwardslash = 1;
 
 // grab each square in the table
 var squares = document.querySelectorAll("td");
@@ -73,20 +82,20 @@ squares[12].textContent = "Free!";
 let ballOrder = randomArray(1,75);
 console.log(ballOrder);
 
-let gridWidth = 5;
-// set counters, account for free space
-let rowCount = [0,0,1,0,0];
-let colCount = [0,0,1,0,0];
-let backslash = 1;
-let forwardslash = 1;
+let whiteBall = document.getElementById('current-ball');
+whiteBall.addEventListener("click", function() {
+	if (whiteBall.textContent === "Start") {
+		startCounter();
+	}
+})
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
-		//if (square.textContent === document.getElementById("current-ball").textContent) {
+		// if (square.textContent === document.getElementById("current-ball").textContent) {
 			console.log(square);
 			let indy = square.dataset.index;
 			console.log("indy" + indy);
-			square.style.backgroundColor = "white";
+			square.style.backgroundColor = "#969aa3";
 
 			let markedCol = indy%gridWidth;
 			colCount[markedCol]++;
@@ -110,14 +119,26 @@ squares.forEach(function(square) {
 			console.log("forwardslash: " + forwardslash);
 			console.log("backslash: " + backslash);
 
-			if (game.switchPlayer) {
-				alert('nice job ' + game.currentPlayer + '!');
-				game.currentPlayer.score = game.currentPlayer.strokeCount;
-				document.getElementById(game.currentPlayer + "Strokes").textContent = game.currentStrokes;
-				console.log(game.currentPlayer.name + ' score ' + game.currentPlayer.score);
+			if (game.switchPlayer && game.currentPlayer.id === "player2") {
+				game.over = true;
+				if (player1.score < player2.score) {
+					alert(player1.name + " Wins!")
+				} else (player2.name)
 			}
 
-		//}
+			if (game.switchPlayer && game.currentPlayer.id === "player1") {
+				alert('nice job ' + game.currentPlayer.name + '!');
+				game.currentPlayer.score = game.currentStrokes;
+				document.getElementById(game.currentPlayer.id + "Strokes").textContent = game.currentPlayer.score;
+				console.log(game.currentPlayer.name + ' score ' + game.currentPlayer.score);
+				game.currentPlayer = player2;
+				game.switchPlayer = false;
+				clearInterval(game.ticker);
+				whiteBall.textContent = "Start";
+				clearCounters();
+			}
+
+		// }
 	});
 });
 
@@ -132,19 +153,21 @@ function nextBall() {
 }
 
 function startCounter() {
-
+	game.currentStrokes = 0; // start the counter over
 	nextBall(); // call once to start immediately, then through setInterval()
-	setInterval(function() {
+	game.ticker  = setInterval(function() {
 		console.log('Hey! Hey!');
 		nextBall();
-	}, 2300);
-
+	}, 2600);
 }
-startCounter();
 
-
-
-
-
+function clearCounters() {
+	// set counters, account for free space
+	rowCount = [0,0,1,0,0];
+	colCount = [0,0,1,0,0];
+	backslash = 1;
+	forwardslash = 1;
+	console.log (rowCount);
+}
 
 
