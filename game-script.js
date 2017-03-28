@@ -137,7 +137,7 @@ function startCounter() {
 	setInterval(function() {
 		console.log('Hey! Hey!');
 		nextBall();
-	}, 2000);
+	}, 2300);
 
 }
 startCounter();
