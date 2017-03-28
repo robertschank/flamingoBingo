@@ -49,6 +49,19 @@ table {
 	top: 17px;
 	left: 23px;
 }
+.current-container {
+	position: relative;
+	left: 292px;
+}
+.current-ball-container {
+	display: inline-block;
+}
+.current-strokes-container {
+	display: inline;
+	position: relative;
+	top: -78px;
+	left: 20px;
+}
 .current-ball-label {
 	font-size: 20px;
 	text-align: center;
