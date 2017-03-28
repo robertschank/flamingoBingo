@@ -36,8 +36,12 @@ let colCount = [0,0,1,0,0];
 let backslash = 1;
 let forwardslash = 1;
 
+let ballOrder;
+
 // grab each square in the table
 var squares = document.querySelectorAll("td");
+
+setSquares();
 
 //create random array of ints from min to max
 function randomArray(min, max) { 
@@ -63,24 +67,31 @@ function randomArray(min, max) {
 	return randomArray;
 }
 
+function setSquares() {
+
+
 let squareValues = randomArray(1,75);
+	// Assign each square their random value
+	for (let i = 0; i < 25; i++) {
+		squares[i].textContent = squareValues[i];
+		// assign each square an index
+		squares[i].dataset.index = i;
+		// create checker pattern
+		if (i%2 === 0) {squares[i].style.backgroundColor = "#dbeeff";}
+		else {squares[i].style.backgroundColor = "#c9e5ff"; }
+	}
+	// set free space
+	squares[12].textContent = "Free!";
 
-console.log(squareValues);
-// Assign each square their random value
-for (let i = 0; i < 25; i++) {
-	squares[i].textContent = squareValues[i];
-	// assign each square an index
-	squares[i].dataset.index = i;
-	// create checker pattern
-	if (i%2 === 0) {squares[i].style.backgroundColor = "#dbeeff";}
-	else {squares[i].style.backgroundColor = "#c9e5ff"; }
+	// create a random array for "calling" the balls
+	ballOrder = randomArray(1,75);
+	console.log(ballOrder);
+
 }
-// set free space
-squares[12].textContent = "Free!";
 
-// create a random array for "calling" the balls
-let ballOrder = randomArray(1,75);
-console.log(ballOrder);
+
+
+
 
 let whiteBall = document.getElementById('current-ball');
 whiteBall.addEventListener("click", function() {
@@ -119,21 +130,30 @@ squares.forEach(function(square) {
 			console.log("forwardslash: " + forwardslash);
 			console.log("backslash: " + backslash);
 
+			console.log("currentPlayerId" + game.currentPlayer.id);
+			console.log("switchPlayer: " + game.switchPlayer);
+
 			if (game.switchPlayer && game.currentPlayer.id === "player2") {
 				game.over = true;
+				if (player1.score === player2.score) {
+					alert("Uh oh, we got a tie.");
+				}
 				if (player1.score < player2.score) {
-					alert(player1.name + " Wins!")
-				} else (player2.name)
+					alert("Game Over! " + player1.name + " Wins!");
+				} else {
+					alert("Game Over! " + player2.name + " Wins!");
+				}
 			}
 
 			if (game.switchPlayer && game.currentPlayer.id === "player1") {
-				alert('nice job ' + game.currentPlayer.name + '!');
+				alert('nice job ' + game.currentPlayer.name + "! Player 2, you're up!");
 				game.currentPlayer.score = game.currentStrokes;
 				document.getElementById(game.currentPlayer.id + "Strokes").textContent = game.currentPlayer.score;
 				console.log(game.currentPlayer.name + ' score ' + game.currentPlayer.score);
 				game.currentPlayer = player2;
 				game.switchPlayer = false;
 				clearInterval(game.ticker);
+				setSquares(); //regenerate board
 				whiteBall.textContent = "Start";
 				clearCounters();
 			}
