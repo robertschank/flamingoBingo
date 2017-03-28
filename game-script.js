@@ -40,6 +40,9 @@ for (let i = 0; i < 25; i++) {
 	squares[i].textContent = squareValues[i];
 	// assign each square an index
 	squares[i].dataset.index = i;
+	// create checker pattern
+	if (i%2 === 0) {squares[i].style.backgroundColor = "#dbeeff";}
+	else {squares[i].style.backgroundColor = "#c9e5ff"; }
 }
 // set free space
 squares[12].textContent = "Free!";
@@ -54,13 +57,14 @@ function nextBall() {
 	document.getElementById("current-ball").textContent = ballOrder[ballNumber];
 
 }
-callBall();
+nextBall();
 
 let gridWidth = 5;
+// set counters, account for free space
 let rowCount = [0,0,1,0,0];
 let colCount = [0,0,1,0,0];
-let backslash = 0;
-let forwardslash = 0;
+let backslash = 1;
+let forwardslash = 1;
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
@@ -68,13 +72,27 @@ squares.forEach(function(square) {
 			console.log(square);
 			let indy = square.dataset.index;
 			console.log("indy" + indy);
-			square.style.backgroundColor = "blue";
-			colCount[indy%gridWidth]++;
-			rowCount[Math.floor(indy/gridWidth)]++;
+			square.style.backgroundColor = "white";
+
+			let markedCol = indy%gridWidth;
+			colCount[markedCol]++;
+			if (colCount[markedCol] >= gridWidth) {alert('bingo!');}
+
+			let markedRow = Math.floor(indy/gridWidth);
+			rowCount[markedRow]++;
+			if (rowCount[markedRow] >= gridWidth) {
+				alert('bingo');
+			}
+			let x = (colCount - gridWidth);
+			console.log("subtraction: " + x);
+			console.log(gridWidth);
+			console.log(colCount);
 			console.log('rowCount: ' + rowCount);
 			console.log('colCount: ' + colCount);
 			if (indy%(gridWidth+1) === 0) { backslash++; }
+			if (backslash >= gridWidth) {alert('diagonal bingo!');}
 			if (indy == 4 || indy == 8 || indy == 16 || indy == 20) { forwardslash++; }
+			if (forwardslash >= gridWidth) {alert('diagonal bingo yo!');}
 			console.log("forwardslash: " + forwardslash);
 			console.log("backslash: " + backslash);
 
@@ -82,6 +100,15 @@ squares.forEach(function(square) {
 	});
 });
 
+function startGame() {
+
+	setInterval(function() {
+		console.log('Hey! Hey!');
+		nextBall();
+	}, 4000);
+
+}
+startGame();
 
 
 

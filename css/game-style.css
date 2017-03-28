@@ -1,6 +1,5 @@
 body {
 	background-color: #f7f7f7;
-	text-align: center;
 }
 header {
 
@@ -10,13 +9,21 @@ main {
 }
 td {
 	width: 100px;
-	height: 70px;
+	height: 60px;
 	border: 3px solid white;
 	font-size: 20px;
 	background-color: #bae3ff;
 	text-align: center;
-	padding-top: 30px;
+	padding-top: 40px;
 }
 h1 {
 	padding-bottom: 100px;
+}
+table {
+	margin: 0 auto;
+}
+.current-ball-label {
+	font-size: 30px;
+	text-align: center;
+	margin: 15px 0;
 }
