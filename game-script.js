@@ -40,6 +40,7 @@ let ballOrder;
 
 // grab each square in the table
 var squares = document.querySelectorAll("td");
+let reset = document.querySelector('button');
 
 setSquares();
 
@@ -69,7 +70,6 @@ function randomArray(min, max) {
 
 function setSquares() {
 
-
 let squareValues = randomArray(1,75);
 	// Assign each square their random value
 	for (let i = 0; i < 25; i++) {
@@ -86,12 +86,7 @@ let squareValues = randomArray(1,75);
 	// create a random array for "calling" the balls
 	ballOrder = randomArray(1,75);
 	console.log(ballOrder);
-
 }
-
-
-
-
 
 let whiteBall = document.getElementById('current-ball');
 whiteBall.addEventListener("click", function() {
@@ -100,9 +95,13 @@ whiteBall.addEventListener("click", function() {
 	}
 })
 
+reset.addEventListener("click", function() {
+	location.reload();
+});
+
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
-		// if (square.textContent === document.getElementById("current-ball").textContent) {
+		 // if (square.textContent === document.getElementById("current-ball").textContent) {
 			console.log(square);
 			let indy = square.dataset.index;
 			console.log("indy" + indy);
@@ -135,21 +134,29 @@ squares.forEach(function(square) {
 
 			if (game.switchPlayer && game.currentPlayer.id === "player2") {
 				game.over = true;
-				if (player1.score === player2.score) {
-					alert("Uh oh, we got a tie.");
-				}
+				clearInterval(game.ticker);
+				player2.score = game.currentStrokes;
+				console.log('player1score: ' + player1.score);
+				console.log('player2score: ' + player2.score);
+				document.getElementById(game.currentPlayer.id + "Strokes").textContent = game.currentPlayer.score;
+				document.getElementById('player2Score').style.fontWeight = "400";
 				if (player1.score < player2.score) {
 					alert("Game Over! " + player1.name + " Wins!");
+				} else if (player1.score > player2.score) {
+					alert("Game Over! " + player2.name + " Wins!" );
 				} else {
-					alert("Game Over! " + player2.name + " Wins!");
+					alert("Uh Oh, we got a tie.");
 				}
 			}
 
 			if (game.switchPlayer && game.currentPlayer.id === "player1") {
 				alert('nice job ' + game.currentPlayer.name + "! Player 2, you're up!");
 				game.currentPlayer.score = game.currentStrokes;
+				player1.score = game.currentStrokes;
 				document.getElementById(game.currentPlayer.id + "Strokes").textContent = game.currentPlayer.score;
 				console.log(game.currentPlayer.name + ' score ' + game.currentPlayer.score);
+				document.getElementById('player2Score').style.fontWeight = "800";
+				document.getElementById('player1Score').style.fontWeight = "400";
 				game.currentPlayer = player2;
 				game.switchPlayer = false;
 				clearInterval(game.ticker);
@@ -158,7 +165,7 @@ squares.forEach(function(square) {
 				clearCounters();
 			}
 
-		// }
+		 // }
 	});
 });
 
@@ -178,7 +185,7 @@ function startCounter() {
 	game.ticker  = setInterval(function() {
 		console.log('Hey! Hey!');
 		nextBall();
-	}, 2600);
+	}, 3000);
 }
 
 function clearCounters() {
@@ -189,5 +196,4 @@ function clearCounters() {
 	forwardslash = 1;
 	console.log (rowCount);
 }
-
 
