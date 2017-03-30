@@ -25,6 +25,7 @@ function Game() {
 	this.switchPlayer = false;
 	this.currentStrokes = 0;
 	this.ticker;
+	this.ticker2;
 }
 
 let game = new Game();
@@ -37,7 +38,8 @@ let backslash = 1;
 let forwardslash = 1;
 
 let ballOrder;
-
+// create variable for white ball animations
+let whiteBallContainer = document.getElementById("white-ball");
 // grab each square in the table
 var squares = document.querySelectorAll("td");
 let reset = document.querySelector('button');
@@ -101,7 +103,7 @@ reset.addEventListener("click", function() {
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
-		 // if (square.textContent === document.getElementById("current-ball").textContent) {
+		 if (square.textContent === document.getElementById("current-ball").textContent) {
 			console.log(square);
 			let indy = square.dataset.index;
 			console.log("indy" + indy);
@@ -165,7 +167,7 @@ squares.forEach(function(square) {
 				clearCounters();
 			}
 
-		 // }
+		 }
 	});
 });
 
@@ -175,6 +177,7 @@ function nextBall() {
 	ballNumber++; //for first ball, sets ballNumber to 0, increments by one every time after
 	let currentBall = document.getElementById("current-ball");
 	currentBall.textContent = ballOrder[ballNumber];
+	// whiteBallContainer.className = "white-ball-bounce";
 	if (ballNumber >= 74) {ballNumber = -1;}
 
 }
@@ -185,7 +188,14 @@ function startCounter() {
 	game.ticker  = setInterval(function() {
 		console.log('Hey! Hey!');
 		nextBall();
-	}, 3000);
+	}, 4000);
+	game.ticker2  = setInterval(function() {
+		console.log("ticker2 fully operational");
+		if (whiteBallContainer.className === "white-ball-bounce") {
+			whiteBallContainer.className = "white-ball";
+		} else { whiteBallContainer.className = "white-ball-bounce"; }
+	
+	}, 2000);
 }
 
 function clearCounters() {

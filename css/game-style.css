@@ -66,8 +66,6 @@ button {
 .current-container {
 	width: 400px;
 	margin: 0 auto;
-	position: relative;
-	top: 23px;
 }
 .current-strokes-container {
 	display: inline;
@@ -83,6 +81,19 @@ button {
 	height: 140px;
 	background-size: cover;
 	display: inline-block;
+	position: relative;
+    top: 21px;
+   	transition: .2s;
+}
+.white-ball-bounce {
+	background-image: url(../images/white-ball.png);
+	width: 140px;
+	height: 140px;
+	background-size: cover;
+	display: inline-block;
+	position: relative;
+    top: 11px;
+	transition: 2s;
 }
 .scores {
 	display: inline-block;
@@ -98,6 +109,20 @@ button {
 	top: 35px;
 
 }
+	@keyframes bounce {
+		0% {
+			position: relative;
+			top: 0px;
+		}
+		50% {
+			position: relative;
+			top: -120px;
+		}
+		100% {
+			position: initial;
+			top: 0px;
+		}
+	}
 #player1Score {
 	padding: 4px;
     font-size: 25px;
