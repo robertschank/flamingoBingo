@@ -1,5 +1,3 @@
-console.log("game time");
-
 //square constructor
 function Square() {
 	this.marked = false;
@@ -87,7 +85,6 @@ let squareValues = randomArray(1,75);
 
 	// create a random array for "calling" the balls
 	ballOrder = randomArray(1,75);
-	console.log(ballOrder);
 }
 
 let whiteBall = document.getElementById('current-ball');
@@ -103,10 +100,8 @@ reset.addEventListener("click", function() {
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
-		 //if (square.textContent === document.getElementById("current-ball").textContent) {
-			console.log(square);
+		 if (square.textContent === document.getElementById("current-ball").textContent) {
 			let indy = square.dataset.index;
-			console.log("indy" + indy);
 			square.style.backgroundColor = "#969aa3";
 
 			let markedCol = indy%gridWidth;
@@ -119,28 +114,16 @@ squares.forEach(function(square) {
 				game.switchPlayer = true;
 			}
 			let x = (colCount - gridWidth);
-			console.log("subtraction: " + x);
-			console.log(gridWidth);
-			console.log(colCount);
-			console.log('rowCount: ' + rowCount);
-			console.log('colCount: ' + colCount);
 			if (indy%(gridWidth+1) === 0) { backslash++; }
 			if (backslash >= gridWidth) {game.switchPlayer = true;}
 			if (indy == 4 || indy == 8 || indy == 16 || indy == 20) { forwardslash++; }
 			if (forwardslash >= gridWidth) {game.switchPlayer = true;}
-			console.log("forwardslash: " + forwardslash);
-			console.log("backslash: " + backslash);
-
-			console.log("currentPlayerId" + game.currentPlayer.id);
-			console.log("switchPlayer: " + game.switchPlayer);
-
+			// End of Round 2
 			if (game.switchPlayer && game.currentPlayer.id === "player2") {
 				game.over = true;
 				clearInterval(game.ticker);
 				clearInterval(game.ticker2);
 				player2.score = game.currentStrokes;
-				console.log('player1score: ' + player1.score);
-				console.log('player2score: ' + player2.score);
 				document.getElementById(game.currentPlayer.id + "Strokes").textContent = game.currentPlayer.score;
 				document.getElementById('player2Score').style.fontWeight = "400";
 				if (player1.score < player2.score) {
@@ -151,13 +134,12 @@ squares.forEach(function(square) {
 					alert("Uh Oh, we got a tie.");
 				}
 			}
-
+			// End of Round 1
 			if (game.switchPlayer && game.currentPlayer.id === "player1") {
-				alert('nice job ' + game.currentPlayer.name + "! Player 2, you're up!");
+				alert('Nice work ' + game.currentPlayer.name + "! Player 2, you're up!");
 				game.currentPlayer.score = game.currentStrokes;
 				player1.score = game.currentStrokes;
 				document.getElementById(game.currentPlayer.id + "Strokes").textContent = game.currentPlayer.score;
-				console.log(game.currentPlayer.name + ' score ' + game.currentPlayer.score);
 				document.getElementById('player2Score').style.fontWeight = "800";
 				document.getElementById('player1Score').style.fontWeight = "400";
 				game.currentPlayer = player2;
@@ -169,7 +151,7 @@ squares.forEach(function(square) {
 				clearCounters();
 			}
 
-		 //}
+		 }
 	});
 });
 
@@ -179,7 +161,6 @@ function nextBall() {
 	ballNumber++; //for first ball, sets ballNumber to 0, increments by one every time after
 	let currentBall = document.getElementById("current-ball");
 	currentBall.textContent = ballOrder[ballNumber];
-	// whiteBallContainer.className = "white-ball-bounce";
 	if (ballNumber >= 74) {ballNumber = -1;}
 
 }
@@ -189,12 +170,10 @@ function startCounter() {
 	nextBall(); // call once to start immediately, then through setInterval()
 	clearInterval(game.ticker);
 	game.ticker  = setInterval(function() {
-		console.log('Hey! Hey!');
 		nextBall();
 	}, 3000);
 	clearInterval(game.ticker2);
 	game.ticker2  = setInterval(function() {
-		console.log("ticker2 fully operational");
 		if (whiteBallContainer.className === "white-ball-bounce") {
 			whiteBallContainer.className = "white-ball";
 		} else { whiteBallContainer.className = "white-ball-bounce"; }
