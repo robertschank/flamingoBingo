@@ -44,55 +44,12 @@ let reset = document.querySelector('button');
 
 setSquares();
 
-//create random array of ints from min to max
-function randomArray(min, max) { 
-
-	// create sortedArray between min and max
-	let sortedArray = [];
-	for (let i = min; i < (max + 1); i++) {
-		sortedArray.push(i);
-	}
-
-	let randomArray = [];
-	for (let i = 1; i < 76; i++) {
-		// pick an integer from sortedArray at a random index,
-		let randomIndex = Math.floor(Math.random()*(sortedArray.length));
-		let random = sortedArray[randomIndex];
-
-		// remove the element so there are no repeats
-		sortedArray.splice(randomIndex, 1);
-
-		// add random int to randomArray
-		randomArray.push(random);
-	}
-	return randomArray;
-}
-
-function setSquares() {
-
-let squareValues = randomArray(1,75);
-	// Assign each square their random value
-	for (let i = 0; i < 25; i++) {
-		squares[i].textContent = squareValues[i];
-		// assign each square an index
-		squares[i].dataset.index = i;
-		// create checker pattern
-		if (i%2 === 0) {squares[i].style.backgroundColor = "#dbeeff";}
-		else {squares[i].style.backgroundColor = "#c9e5ff"; }
-	}
-	// set free space
-	squares[12].textContent = "Free!";
-
-	// create a random array for "calling" the balls
-	ballOrder = randomArray(1,75);
-}
-
 let whiteBall = document.getElementById('current-ball');
 whiteBall.addEventListener("click", function() {
 	if (whiteBall.textContent === "Start") {
 		startCounter();
 	}
-})
+});
 
 reset.addEventListener("click", function() {
 	location.reload();
@@ -155,6 +112,30 @@ squares.forEach(function(square) {
 	});
 });
 
+//create random array of ints from min to max
+function randomArray(min, max) { 
+
+	// create sortedArray between min and max
+	let sortedArray = [];
+	for (let i = min; i < (max + 1); i++) {
+		sortedArray.push(i);
+	}
+
+	let randomArray = [];
+	for (let i = 1; i < 76; i++) {
+		// pick an integer from sortedArray at a random index,
+		let randomIndex = Math.floor(Math.random()*(sortedArray.length));
+		let random = sortedArray[randomIndex];
+
+		// remove the element so there are no repeats
+		sortedArray.splice(randomIndex, 1);
+
+		// add random int to randomArray
+		randomArray.push(random);
+	}
+	return randomArray;
+}
+
 let ballNumber = -1;
 function nextBall() {
 	game.currentStrokes++;
@@ -162,7 +143,24 @@ function nextBall() {
 	let currentBall = document.getElementById("current-ball");
 	currentBall.textContent = ballOrder[ballNumber];
 	if (ballNumber >= 74) {ballNumber = -1;}
+}
 
+function setSquares() {
+let squareValues = randomArray(1,75);
+	// Assign each square their random value
+	for (let i = 0; i < 25; i++) {
+		squares[i].textContent = squareValues[i];
+		// assign each square an index
+		squares[i].dataset.index = i;
+		// create checker pattern
+		if (i%2 === 0) {squares[i].style.backgroundColor = "#dbeeff";}
+		else {squares[i].style.backgroundColor = "#c9e5ff"; }
+	}
+	// set free space
+	squares[12].textContent = "Free!";
+
+	// create a random array for "calling" the balls
+	ballOrder = randomArray(1,75);
 }
 
 function startCounter() {
