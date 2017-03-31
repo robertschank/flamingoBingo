@@ -83,7 +83,7 @@ button {
 	display: inline-block;
 	position: relative;
     top: 21px;
-   	transition: .2s;
+   	transition: .1s;
 }
 .white-ball-bounce {
 	background-image: url(../images/white-ball.png);
@@ -93,13 +93,13 @@ button {
 	display: inline-block;
 	position: relative;
     top: 11px;
-	transition: 2s;
+	transition: 1s;
 }
 .scores {
 	display: inline-block;
 	position: relative;
 	left: 30px;
-	top: 30px;
+	top: 53px;
 }
 #current-ball {
 

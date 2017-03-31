@@ -103,7 +103,7 @@ reset.addEventListener("click", function() {
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
-		 if (square.textContent === document.getElementById("current-ball").textContent) {
+		 //if (square.textContent === document.getElementById("current-ball").textContent) {
 			console.log(square);
 			let indy = square.dataset.index;
 			console.log("indy" + indy);
@@ -137,6 +137,7 @@ squares.forEach(function(square) {
 			if (game.switchPlayer && game.currentPlayer.id === "player2") {
 				game.over = true;
 				clearInterval(game.ticker);
+				clearInterval(game.ticker2);
 				player2.score = game.currentStrokes;
 				console.log('player1score: ' + player1.score);
 				console.log('player2score: ' + player2.score);
@@ -162,12 +163,13 @@ squares.forEach(function(square) {
 				game.currentPlayer = player2;
 				game.switchPlayer = false;
 				clearInterval(game.ticker);
+				clearInterval(game.ticker2);
 				setSquares(); //regenerate board
 				whiteBall.textContent = "Start";
 				clearCounters();
 			}
 
-		 }
+		 //}
 	});
 });
 
@@ -185,17 +187,19 @@ function nextBall() {
 function startCounter() {
 	game.currentStrokes = 0; // start the counter over
 	nextBall(); // call once to start immediately, then through setInterval()
+	clearInterval(game.ticker);
 	game.ticker  = setInterval(function() {
 		console.log('Hey! Hey!');
 		nextBall();
-	}, 4000);
+	}, 3000);
+	clearInterval(game.ticker2);
 	game.ticker2  = setInterval(function() {
 		console.log("ticker2 fully operational");
 		if (whiteBallContainer.className === "white-ball-bounce") {
 			whiteBallContainer.className = "white-ball";
 		} else { whiteBallContainer.className = "white-ball-bounce"; }
 	
-	}, 2000);
+	}, 1500);
 }
 
 function clearCounters() {
