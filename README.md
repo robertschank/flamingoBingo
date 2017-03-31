@@ -1,6 +1,8 @@
 # flamingoBingo
 
-# [Link to my Trello](https://trello.com/b/lRlczRkg/flamingo-bingo)
+## [Try it Out!](https://bobbyschank.github.io/flamingoBingo/bingo.html)
+
+## [Link to my Trello](https://trello.com/b/lRlczRkg/flamingo-bingo)
 
 ![](wire-frames.jpg)
 
