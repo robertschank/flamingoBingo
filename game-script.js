@@ -58,7 +58,7 @@ reset.addEventListener("click", function() {
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
-		 // if (square.textContent === document.getElementById("current-ball").textContent) {
+		 if (square.textContent === document.getElementById("current-ball").textContent) {
 		 	// get the index of the clicked square
 			let indy = square.dataset.index;
 			// give it a grey background
@@ -123,7 +123,7 @@ squares.forEach(function(square) {
 				clearCounters();
 			}
 
-		 // }
+		 }
 	});
 });
 
