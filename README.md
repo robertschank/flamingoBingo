@@ -1,6 +1,6 @@
 # flamingoBingo
 
-## [Try it Out!](https://bobbyschank.github.io/flamingoBingo/bingo.html)
+## [Try it Out!](https://bobbyschank.github.io/flamingoBingo/index.html)
 
 ## [Link to my Trello](https://trello.com/b/lRlczRkg/flamingo-bingo)
 
