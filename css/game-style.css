@@ -11,6 +11,7 @@ header {
 main {
 
 }
+/*individual square properties*/
 td {
 	width: 80px;
 	height: 50px;
@@ -24,7 +25,6 @@ h1 {
 	padding-bottom: 100px;
 }
 table {
-	border: thin solid red;
 	margin: 0 auto;
 	box-shadow: 5px 5px 5px #888888;
 	    border: 4px solid #bcc5d6;
@@ -75,6 +75,7 @@ button {
 	text-align: center;
 	margin: 15px 0 0 0;
 }
+/* class for ball at bottom of bounce or resting */
 .white-ball {
 	background-image: url(../images/white-ball.png);
 	width: 140px;
@@ -82,9 +83,10 @@ button {
 	background-size: cover;
 	display: inline-block;
 	position: relative;
-    top: 21px;
-   	transition: .1s;
+    top: 21px; 
+   	transition: .1s;  /* how fast the ball drops  */  
 }
+/*class for ball at top of bounce */
 .white-ball-bounce {
 	background-image: url(../images/white-ball.png);
 	width: 140px;
@@ -93,7 +95,7 @@ button {
 	display: inline-block;
 	position: relative;
     top: 11px;
-	transition: 1s;
+	transition: 1s;   /* how fast the ball rises  */
 }
 .scores {
 	display: inline-block;

@@ -24,6 +24,7 @@ function Game() {
 	this.currentStrokes = 0;
 	this.ticker;
 	this.ticker2;
+	this.speed = 3500;
 }
 
 let game = new Game();
@@ -57,24 +58,38 @@ reset.addEventListener("click", function() {
 
 squares.forEach(function(square) {
 	square.addEventListener("click", function() {
-		 if (square.textContent === document.getElementById("current-ball").textContent) {
+		 // if (square.textContent === document.getElementById("current-ball").textContent) {
+		 	// get the index of the clicked square
 			let indy = square.dataset.index;
+			// give it a grey background
 			square.style.backgroundColor = "#969aa3";
 
+			//find the column of selected square using modulo
 			let markedCol = indy%gridWidth;
+			// increment the colCount array by one at the index of the column
 			colCount[markedCol]++;
+			//check for a win condition
 			if (colCount[markedCol] >= gridWidth) {game.switchPlayer = true;}
 
 			let markedRow = Math.floor(indy/gridWidth);
 			rowCount[markedRow]++;
+			//check for a win condition
 			if (rowCount[markedRow] >= gridWidth) {
 				game.switchPlayer = true;
 			}
 			let x = (colCount - gridWidth);
 			if (indy%(gridWidth+1) === 0) { backslash++; }
+			//check for a win condition
 			if (backslash >= gridWidth) {game.switchPlayer = true;}
 			if (indy == 4 || indy == 8 || indy == 16 || indy == 20) { forwardslash++; }
+			//check for a win condition
 			if (forwardslash >= gridWidth) {game.switchPlayer = true;}
+
+			console.log('colCount: ' + colCount);
+			console.log('rowCount: ' + rowCount);
+			console.log('forwardslash: ' + forwardslash);
+			console.log('backslash: ' + backslash);
+
 			// End of Round 2
 			if (game.switchPlayer && game.currentPlayer.id === "player2") {
 				game.over = true;
@@ -108,7 +123,7 @@ squares.forEach(function(square) {
 				clearCounters();
 			}
 
-		 }
+		 // }
 	});
 });
 
@@ -169,14 +184,14 @@ function startCounter() {
 	clearInterval(game.ticker);
 	game.ticker  = setInterval(function() {
 		nextBall();
-	}, 3000);
+	}, game.speed);
 	clearInterval(game.ticker2);
 	game.ticker2  = setInterval(function() {
 		if (whiteBallContainer.className === "white-ball-bounce") {
 			whiteBallContainer.className = "white-ball";
 		} else { whiteBallContainer.className = "white-ball-bounce"; }
 	
-	}, 1500);
+	}, (game.speed/2));
 }
 
 function clearCounters() {
